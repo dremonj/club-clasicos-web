@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Club Clásicos Cierzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: revista de club de los 70 — portada con foto a sangre, columnas sobrias,
+   fichas de coche como placas de matrícula y rutas como "road-book" de rally. */
+:root{
+  --paper:#eef0ee;      /* gris papel frío */
+  --card:#f8f9f7;
+  --ink:#16222b;
+  --muted:#55636b;
+  --line:#c9d0cf;
+  --petrol:#1d5a78;     /* azul SEAT 600 */
+  --petrol-ink:#ffffff;
+  --mustard:#e2b52b;    /* amarillo Renault 8 */
+  --mustard-ink:#1c1606;
+  --plate:#ffffff;
+  --plate-ink:#111111;
+  --display:"Archivo", "Arial Narrow", Arial, sans-serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11181d;--card:#172129;--ink:#e6ebec;--muted:#9aa8ae;--line:#2c3a43;
+  --petrol:#5aa6c9;--petrol-ink:#0b1418;--mustard:#e8c050;--mustard-ink:#1c1606;
+  --plate:#e9ecea;--plate-ink:#111111;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11181d;--card:#172129;--ink:#e6ebec;--muted:#9aa8ae;--line:#2c3a43;
+  --petrol:#5aa6c9;--petrol-ink:#0b1418;--mustard:#e8c050;--mustard-ink:#1c1606;
+  --plate:#e9ecea;--plate-ink:#111111;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--body);margin:0}
+a{color:var(--petrol)}
+:focus-visible{outline:3px solid var(--mustard);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);line-height:1.05;text-wrap:balance;margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+.eyebrow{font:600 .75rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- cabecera ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.badge{width:44px;height:44px;border-radius:50%;background:var(--petrol);color:var(--petrol-ink);display:grid;place-items:center;
+  font:900 1rem/1 var(--display);font-stretch:125%;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 5px var(--petrol)}
+.brand b{display:block;font:800 1.05rem/1 var(--display);font-stretch:115%;letter-spacing:.02em;text-transform:uppercase}
+.brand small{font:400 .72rem/1.3 var(--mono);color:var(--muted)}
+nav.tabs{display:flex;gap:6px}
+nav.tabs a{font:700 .9rem/1 var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:.04em;
+  text-decoration:none;color:var(--ink);padding:10px 14px;border-radius:999px;border:1px solid transparent}
+nav.tabs a:hover{border-color:var(--line)}
+nav.tabs a[aria-current="page"]{background:var(--ink);color:var(--paper)}
+
+/* ---------- portada ---------- */
+.hero{position:relative;background:#0e1a20;color:#fff;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;opacity:.62}
+.hero .wrap{position:relative;padding-block:clamp(72px,12vw,150px) clamp(40px,6vw,70px);display:grid;gap:22px}
+.hero .eyebrow{color:#f1d27a}
+.hero h1{font-size:clamp(2.6rem,7.5vw,5.8rem);font-weight:900;font-stretch:125%;text-transform:uppercase;letter-spacing:-.01em;max-width:14ch}
+.hero h1 em{font-style:normal;color:#f1d27a}
+.hero p{max-width:52ch;font-size:1.15rem;margin:0;color:#e9eef0}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 .95rem/1 var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:.04em;
+  padding:14px 20px;border-radius:4px;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn.primary{background:var(--mustard);color:var(--mustard-ink)}
+.btn.ghost{border-color:currentColor;color:inherit;background:transparent}
+.btn:hover{filter:brightness(1.06)}
+.photo-credit{position:absolute;right:12px;bottom:8px;font:400 .68rem var(--mono);color:#cfd8dc;opacity:.8}
+
+/* ---------- bandas y secciones ---------- */
+section{padding-block:clamp(48px,7vw,88px)}
+.sec-head{display:grid;gap:10px;margin-bottom:32px;max-width:62ch}
+.sec-head h2{font-size:clamp(1.9rem,4vw,2.9rem);font-weight:850;font-stretch:118%;text-transform:uppercase}
+.sec-head p{margin:0;color:var(--muted)}
+
+.facts{border-block:1px solid var(--line);background:var(--card)}
+.facts .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0}
+.fact{padding:22px 18px;border-left:1px solid var(--line)}
+.fact:first-child{border-left:0}
+.fact strong{display:block;font:900 2.4rem/1 var(--display);font-stretch:120%;font-variant-numeric:tabular-nums;color:var(--petrol)}
+.fact span{font:400 .8rem/1.4 var(--mono);color:var(--muted)}
+
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:start}
+.about > *{min-width:0}
+.about .lead{font-size:1.3rem;line-height:1.5;margin:0 0 18px}
+.about p{margin:0 0 16px;max-width:62ch}
+.about figure{margin:0}
+.about figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block}
+figcaption{font:400 .78rem/1.4 var(--mono);color:var(--muted);margin-top:8px}
+
+.do-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.do-item{border-top:3px solid var(--ink);padding-top:14px}
+.do-item h3{font-size:1.25rem;font-stretch:112%;text-transform:uppercase;margin-bottom:8px}
+.do-item p{margin:0;color:var(--muted)}
+
+/* ---------- garaje: fichas con matrícula ---------- */
+.garage{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.car{background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.car img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.car .body{padding:16px 16px 18px;display:grid;gap:8px;flex:1;align-content:start}
+.car h3{font-size:1.2rem;font-stretch:112%}
+.car p{margin:0;font-size:.95rem;color:var(--muted)}
+.plate{justify-self:start;display:inline-flex;align-items:stretch;border:2px solid var(--plate-ink);border-radius:4px;background:var(--plate);color:var(--plate-ink);
+  font:600 .85rem/1 var(--mono);letter-spacing:.08em;overflow:hidden}
+.plate i{font-style:normal;background:#1f3f99;color:#fff;padding:5px 5px;font-size:.6rem;display:grid;place-items:center}
+.plate span{padding:5px 9px}
+
+/* ---------- hazte socio ---------- */
+.join{background:var(--petrol);color:var(--petrol-ink)}
+.join .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px)}
+.join .wrap > *{min-width:0}
+.join h2{font-size:clamp(1.9rem,4vw,2.9rem);font-weight:850;font-stretch:118%;text-transform:uppercase;margin-bottom:14px}
+.join p{margin:0 0 14px;max-width:52ch}
+.fees{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:0}
+.fees li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--petrol-ink) 30%,transparent);font-variant-numeric:tabular-nums}
+.fees b{font-family:var(--mono)}
+form.card{background:var(--card);color:var(--ink);border-radius:4px;padding:24px;display:grid;gap:14px}
+form.card label{display:grid;gap:6px;font:600 .78rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+form.card input,form.card select,form.card textarea{font:400 1rem var(--body);padding:11px 12px;border:1px solid var(--line);border-radius:3px;background:var(--paper);color:var(--ink);width:100%}
+form.card .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.note{font:400 .8rem/1.4 var(--mono);color:var(--muted);margin:0}
+.ok{background:color-mix(in srgb,var(--mustard) 25%,var(--card));border-left:4px solid var(--mustard);padding:10px 12px;font-size:.95rem}
+
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.person{border-top:1px solid var(--line);padding-top:12px}
+.person b{display:block;font:700 1.05rem/1.2 var(--display);font-stretch:108%}
+.person span{font:400 .8rem/1.5 var(--mono);color:var(--muted)}
+
+/* ---------- eventos ---------- */
+.page-head{border-bottom:1px solid var(--line);background:var(--card)}
+.page-head .wrap{padding-block:clamp(40px,6vw,72px) 32px;display:grid;gap:14px}
+.page-head h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:900;font-stretch:125%;text-transform:uppercase}
+.page-head p{margin:0;max-width:60ch;color:var(--muted);font-size:1.1rem}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.chip{font:600 .8rem/1 var(--mono);letter-spacing:.04em;padding:9px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+.events{display:grid;gap:0;border-top:2px solid var(--ink)}
+.event{display:grid;grid-template-columns:96px 1fr auto;gap:22px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+.event > *{min-width:0}
+.date{text-align:center;border:2px solid var(--ink);border-radius:4px;overflow:hidden;background:var(--card)}
+.date small{display:block;background:var(--ink);color:var(--paper);font:600 .7rem/1 var(--mono);letter-spacing:.12em;padding:5px 0;text-transform:uppercase}
+.date strong{display:block;font:900 2.1rem/1.1 var(--display);font-stretch:120%;padding:6px 0 2px;font-variant-numeric:tabular-nums}
+.date span{display:block;font:400 .7rem/1 var(--mono);color:var(--muted);padding-bottom:7px}
+.event h3{font-size:1.35rem;font-stretch:112%;margin-bottom:6px}
+.event p{margin:0 0 8px;color:var(--muted);max-width:64ch}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font:400 .8rem/1.4 var(--mono);color:var(--muted)}
+.tag{font:600 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:3px;white-space:nowrap;align-self:start}
+.tag.concentracion{background:var(--petrol);color:var(--petrol-ink)}
+.tag.ruta{background:var(--mustard);color:var(--mustard-ink)}
+.tag.feria{background:var(--ink);color:var(--paper)}
+.tag.social{border:1px solid var(--ink);color:var(--ink)}
+
+/* ---------- rutas: road-book ---------- */
+.routes{display:grid;gap:32px}
+.route{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.route > *{min-width:0}
+.route .pic{position:relative}
+.route .pic img{width:100%;height:100%;min-height:240px;object-fit:cover;display:block}
+.route .pic .km{position:absolute;left:14px;top:14px;background:var(--mustard);color:var(--mustard-ink);font:900 1.3rem/1 var(--display);font-stretch:118%;padding:8px 12px;border-radius:3px}
+.route .info{padding:24px;display:grid;gap:14px;align-content:start}
+.route h3{font-size:1.55rem;font-stretch:115%;text-transform:uppercase}
+.route .info > p{margin:0;color:var(--muted)}
+.specs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:3px}
+.specs div{padding:10px 12px;border-left:1px solid var(--line)}
+.specs div:first-child{border-left:0}
+.specs dt{font:400 .68rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.specs dd{margin:4px 0 0;font:700 1rem/1.2 var(--display);font-variant-numeric:tabular-nums}
+.roadbook{overflow-x:auto}
+.roadbook table{width:100%;border-collapse:collapse;font:400 .85rem/1.4 var(--mono);font-variant-numeric:tabular-nums}
+.roadbook th{text-align:left;font-weight:600;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink);padding:6px 8px}
+.roadbook td{padding:7px 8px;border-bottom:1px dashed var(--line);vertical-align:top}
+.roadbook td:first-child{width:4.5em;font-weight:600}
+.dots{letter-spacing:2px;color:var(--mustard)}
+
+.past{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.past figure{margin:0}
+.past img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block}
+
+footer{border-top:1px solid var(--line);padding-block:36px;font-size:.9rem;color:var(--muted)}
+footer .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+footer b{display:block;color:var(--ink);font:700 .95rem var(--display);font-stretch:110%;text-transform:uppercase;margin-bottom:6px}
+footer p{margin:0 0 4px}
+.copy{display:inline-flex;gap:8px;align-items:center}
+.copy button{font:600 .7rem var(--mono);border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:3px;padding:3px 7px;cursor:pointer}
+
+@media (max-width:820px){
+  .about,.join .wrap,.route{grid-template-columns:1fr}
+  .route .pic img{min-height:200px;aspect-ratio:16/9;height:auto}
+  .event{grid-template-columns:72px 1fr}
+  .event .tag{grid-column:2;justify-self:start;grid-row:1}
+  .date strong{font-size:1.6rem}
+  .specs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .specs div:nth-child(3){border-left:0}
+  .specs div:nth-child(n+3){border-top:1px solid var(--line)}
+  form.card .row{grid-template-columns:1fr}
+  .fact{border-left:0;border-top:1px solid var(--line)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .view{animation:fade .35s ease-out}
+  @keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#club" data-view="club">
+      <span class="badge" aria-hidden="true">CC</span>
+      <span><b>Clásicos Cierzo</b><small>Asociación de vehículos clásicos · desde 1994</small></span>
+    </a>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="#club" data-view="club" aria-current="page">El club</a>
+      <a href="#eventos" data-view="eventos">Eventos y rutas</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ======================= EL CLUB ======================= -->
+<div class="view" id="view-club">
+  <div class="hero">
+    <img src="img/hero-600.jpg" alt="Dos SEAT 600 azules aparcados en una concentración de clásicos">
+    <div class="wrap">
+      <span class="eyebrow">Asociación sin ánimo de lucro · Zaragoza</span>
+      <h1>Clásicos que <em>siguen</em> rodando</h1>
+      <p>Reunimos a propietarios y aficionados de coches clásicos, sobre todo de los fabricados en España: SEAT, Pegaso, FASA-Renault, Citroën Hispania, Barreiros… Salimos a la carretera casi todos los meses.</p>
+      <div class="cta">
+        <a class="btn primary" href="#eventos" data-view="eventos">Ver próximos eventos</a>
+        <a class="btn ghost" href="#socio">Hazte socio</a>
+      </div>
+    </div>
+    <span class="photo-credit">Foto: Wikimedia Commons</span>
+  </div>
+
+  <div class="facts">
+    <div class="wrap">
+      <div class="fact"><strong>1994</strong><span>Año de fundación</span></div>
+      <div class="fact"><strong>186</strong><span>Socios activos</span></div>
+      <div class="fact"><strong>240+</strong><span>Vehículos en el club</span></div>
+      <div class="fact"><strong>14</strong><span>Salidas al año</span></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap about">
+      <div>
+        <div class="sec-head"><span class="eyebrow">Quiénes somos</span><h2>Un garaje compartido</h2></div>
+        <p class="lead">Empezamos doce amigos con sus 600 y sus 124 un domingo de primavera en la Plaza del Pilar. Treinta años después seguimos con la misma idea: disfrutar de estos coches conduciéndolos.</p>
+        <p>En el club hay sitio para cualquier vehículo con más de 25 años, esté restaurado, en proceso o recién sacado de un pajar. No hace falta tener coche para apuntarse: muchos socios vienen por la afición y acaban de copilotos.</p>
+        <p>Ayudamos con la tramitación de la matrícula histórica, recomendamos talleres de confianza, compartimos recambios y organizamos rutas pensadas para coches que prefieren las carreteras secundarias a la autovía.</p>
+      </div>
+      <figure>
+        <img src="img/r8-600.jpg" alt="Un Renault 8 TS amarillo y un SEAT 600 D en una concentración">
+        <figcaption>Renault 8 TS (FASA, 1970) y SEAT 600 D (1965) en la concentración de otoño.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Qué hacemos</span><h2>Más que quedar a tomar un café</h2></div>
+      <div class="do-list">
+        <div class="do-item"><h3>Rutas mensuales</h3><p>Recorridos de 120 a 250 km por carreteras con encanto, con paradas para comer y fotografiar los coches.</p></div>
+        <div class="do-item"><h3>Concentraciones</h3><p>Exposiciones abiertas al público en plazas y fiestas de los pueblos que nos invitan.</p></div>
+        <div class="do-item"><h3>Asesoría técnica</h3><p>Ayuda con la ITV, la catalogación como vehículo histórico y la búsqueda de piezas difíciles.</p></div>
+        <div class="do-item"><h3>Encuentros sociales</h3><p>Cena anual, charlas de restauración y visitas a museos y colecciones privadas.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">El garaje de los socios</span>
+        <h2>Fabricados aquí</h2>
+        <p>Una muestra de los coches que suelen venir a nuestras salidas. Casi todos salieron de fábricas españolas.</p>
+      </div>
+      <div class="garage">
+        <article class="car"><img src="img/hero-600.jpg" alt="SEAT 600" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>Z-54330</span></span><h3>SEAT 600</h3><p>1957–1973 · Barcelona. El coche que motorizó España. Es el más numeroso del club, con 31 unidades.</p></div></article>
+        <article class="car"><img src="img/pegaso.jpg" alt="Pegaso Z-102 Berlinetta" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>M-PEGASO</span></span><h3>Pegaso Z-102</h3><p>1951–1958 · Barcelona. El deportivo de ENASA. Solo se fabricaron 84 y lo vimos en nuestra visita al museo.</p></div></article>
+        <article class="car"><img src="img/seat124.jpg" alt="SEAT 124 D" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>Z-0124-B</span></span><h3>SEAT 124</h3><p>1968–1980 · Barcelona. Fiable y espacioso, perfecto para las rutas largas del club.</p></div></article>
+        <article class="car"><img src="img/spider850.jpg" alt="SEAT 850 Spider" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>HU-8501</span></span><h3>SEAT 850 Spider</h3><p>1969–1974. Pequeño descapotable de carrocería Bertone. Pide carreteras de curvas y buen tiempo.</p></div></article>
+        <article class="car"><img src="img/seat1500.jpg" alt="SEAT 1500" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>TE-1500</span></span><h3>SEAT 1500</h3><p>1963–1972. La berlina de los taxis y de los ministerios. Motor de cuatro cilindros y mucho cromo.</p></div></article>
+        <article class="car"><img src="img/renault4.jpg" alt="Renault 4 L Super de FASA" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>VA-4L68</span></span><h3>Renault 4 L · FASA</h3><p>1964–1992 · Valladolid. El “cuatro latas”, capaz de ir por cualquier camino de tierra.</p></div></article>
+        <article class="car"><img src="img/seat1430.jpg" alt="SEAT 1430 Sport" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>Z-1430-S</span></span><h3>SEAT 1430</h3><p>1969–1975. La versión con más brío del 124, con doble faro. Muy buscada por los socios jóvenes.</p></div></article>
+        <article class="car"><img src="img/biscuter.jpg" alt="Biscúter" loading="lazy"><div class="body"><span class="plate"><i>E</i><span>B-100</span></span><h3>Biscúter</h3><p>1953–1960 · Barcelona. El microcoche de la posguerra, con motor de 197 cc. Siempre atrae a una multitud.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="join" id="socio">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow" style="color:inherit;opacity:.8">Hazte socio</span>
+        <h2>Súbete al club</h2>
+        <p>Ser socio te da acceso a todas las salidas, al seguro de responsabilidad civil para eventos, a descuentos en talleres colaboradores y a la revista trimestral <i>El Cárter</i>.</p>
+        <ul class="fees">
+          <li><span>Cuota de inscripción (una sola vez)</span><b>30 €</b></li>
+          <li><span>Cuota anual</span><b>60 €</b></li>
+          <li><span>Acompañante o familiar</span><b>20 €</b></li>
+          <li><span>Menores de 25 años</span><b>35 €</b></li>
+        </ul>
+      </div>
+      <form class="card" id="joinForm" novalidate>
+        <div class="row">
+          <label for="f-name">Nombre<input id="f-name" name="name" autocomplete="name" placeholder="María López" required></label>
+          <label for="f-phone">Teléfono<input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="600 123 456"></label>
+        </div>
+        <label for="f-email">Correo<input id="f-email" name="email" type="email" autocomplete="email" placeholder="maria@correo.es" required></label>
+        <div class="row">
+          <label for="f-car">Tu coche<input id="f-car" name="car" placeholder="SEAT 124 de 1972"></label>
+          <label for="f-type">Tipo de socio<select id="f-type" name="type"><option>Socio con vehículo</option><option>Socio sin vehículo</option><option>Joven (menor de 25)</option></select></label>
+        </div>
+        <label for="f-msg">Mensaje<textarea id="f-msg" name="msg" rows="3" placeholder="Cuéntanos algo de tu coche o de ti"></textarea></label>
+        <button class="btn primary" type="submit">Enviar solicitud</button>
+        <p class="note">Página de ejemplo: el formulario todavía no envía los datos a ningún sitio.</p>
+        <div class="ok" id="joinOk" hidden></div>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Junta directiva 2025–2027</span><h2>Quién lleva el volante</h2></div>
+      <div class="board">
+        <div class="person"><b>Presidencia</b><span>Nombre del presidente · SEAT 1430 (1971)</span></div>
+        <div class="person"><b>Vicepresidencia</b><span>Nombre · Renault 8 TS (1970)</span></div>
+        <div class="person"><b>Secretaría</b><span>Nombre · SEAT 600 E (1972)</span></div>
+        <div class="person"><b>Tesorería</b><span>Nombre · Citroën 2CV (1978)</span></div>
+        <div class="person"><b>Vocalía de rutas</b><span>Nombre · SEAT 850 Spider (1971)</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= EVENTOS Y RUTAS ======================= -->
+<div class="view" id="view-eventos" hidden>
+  <div class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Temporada 2026–2027</span>
+      <h1>Eventos y rutas</h1>
+      <p>Calendario de salidas del club. Los eventos abiertos al público lo indican; para las rutas, avisa a la vocalía de rutas con una semana de antelación para reservar la comida.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Calendario</span><h2>Próximos eventos</h2></div>
+      <div class="filters" role="group" aria-label="Filtrar eventos">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">Todos</button>
+        <button class="chip" type="button" data-filter="ruta" aria-pressed="false">Rutas</button>
+        <button class="chip" type="button" data-filter="concentracion" aria-pressed="false">Concentraciones</button>
+        <button class="chip" type="button" data-filter="feria" aria-pressed="false">Ferias</button>
+        <button class="chip" type="button" data-filter="social" aria-pressed="false">Sociales</button>
+      </div>
+      <div class="events" id="events">
+        <article class="event" data-type="ruta">
+          <div class="date"><small>Oct</small><strong>18</strong><span>Domingo</span></div>
+          <div><h3>Ruta del Moncayo otoñal</h3><p>Salida desde Zaragoza hacia Tarazona y subida al Santuario del Moncayo entre hayedos. Comida en Vera de Moncayo.</p>
+            <div class="meta"><span>Salida 08:30 · Gasolinera de Casetas</span><span>184 km</span><span>Plazas: 30 coches</span></div></div>
+          <span class="tag ruta">Ruta</span>
+        </article>
+        <article class="event" data-type="concentracion">
+          <div class="date"><small>Nov</small><strong>08</strong><span>Domingo</span></div>
+          <div><h3>XXXII Concentración de Otoño</h3><p>Exposición en el Parque Grande José Antonio Labordeta. Premios al mejor restaurado y al coche más viajero. Abierta al público.</p>
+            <div class="meta"><span>10:00 – 14:00</span><span>Entrada libre</span><span>Inscripción de vehículos: 10 €</span></div></div>
+          <span class="tag concentracion">Concentración</span>
+        </article>
+        <article class="event" data-type="feria">
+          <div class="date"><small>Nov</small><strong>21</strong><span>Sábado</span></div>
+          <div><h3>Viaje a Retro Málaga</h3><p>Excursión en autobús a la feria de vehículos clásicos. Salida el viernes por la tarde y vuelta el domingo.</p>
+            <div class="meta"><span>Autobús + hotel: 145 €</span><span>Reservas hasta el 31 de octubre</span></div></div>
+          <span class="tag feria">Feria</span>
+        </article>
+        <article class="event" data-type="social">
+          <div class="date"><small>Dic</small><strong>12</strong><span>Sábado</span></div>
+          <div><h3>Cena anual y entrega de trofeos</h3><p>Repaso fotográfico de la temporada, sorteo de recambios y premio al socio con más kilómetros en rutas del club.</p>
+            <div class="meta"><span>21:00 · Restaurante en Zaragoza</span><span>45 € por persona</span></div></div>
+          <span class="tag social">Social</span>
+        </article>
+        <article class="event" data-type="ruta">
+          <div class="date"><small>Ene</small><strong>17</strong><span>Domingo</span></div>
+          <div><h3>Ruta de San Antón</h3><p>Bendición de vehículos en Cariñena y recorrido corto por las bodegas del Campo de Cariñena.</p>
+            <div class="meta"><span>Salida 10:00</span><span>96 km</span><span>Apta para todos los coches</span></div></div>
+          <span class="tag ruta">Ruta</span>
+        </article>
+        <article class="event" data-type="social">
+          <div class="date"><small>Feb</small><strong>06</strong><span>Viernes</span></div>
+          <div><h3>Charla: carburadores Bressel y Weber</h3><p>Un socio mecánico explica cómo ajustar los carburadores de los SEAT de los 60 y 70. Con taller práctico.</p>
+            <div class="meta"><span>19:30 · Local social</span><span>Gratis para socios</span></div></div>
+          <span class="tag social">Social</span>
+        </article>
+        <article class="event" data-type="ruta">
+          <div class="date"><small>Abr</small><strong>18</strong><span>Sábado</span></div>
+          <div><h3>Ruta Monasterio de Piedra</h3><p>Primera ruta de primavera por Calatayud y Nuévalos. Visita al parque y comida en el monasterio.</p>
+            <div class="meta"><span>Salida 08:00</span><span>238 km</span><span>Entrada al parque incluida</span></div></div>
+          <span class="tag ruta">Ruta</span>
+        </article>
+      </div>
+      <p class="note" id="emptyMsg" hidden style="padding-top:16px">No hay eventos de este tipo en el calendario actual.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Road-book</span>
+        <h2>Rutas del club</h2>
+        <p>Nuestras rutas favoritas, con sus tramos y paradas. Las repetimos cada año y están preparadas para coches de más de 40 años: sin autovías, con paradas para enfriar motores y gasolineras localizadas.</p>
+      </div>
+      <div class="routes">
+        <article class="route">
+          <div class="pic"><img src="img/spider850.jpg" alt="SEAT 850 Spider en carretera" loading="lazy"><span class="km">184 km</span></div>
+          <div class="info">
+            <span class="eyebrow">Ruta 01 · Otoño</span>
+            <h3>Moncayo y Tarazona</h3>
+            <p>Carreteras de curvas suaves hasta el techo del Sistema Ibérico. La subida al santuario es estrecha y con pendiente: conviene revisar frenos antes.</p>
+            <dl class="specs">
+              <div><dt>Duración</dt><dd>Día entero</dd></div>
+              <div><dt>Puerto</dt><dd>1.620 m</dd></div>
+              <div><dt>Dificultad</dt><dd><span class="dots">●●●</span>○</dd></div>
+              <div><dt>Firme</dt><dd>Asfalto</dd></div>
+            </dl>
+            <div class="roadbook"><table>
+              <thead><tr><th>Km</th><th>Punto</th><th>Nota</th></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>Casetas</td><td>Reunión y café</td></tr>
+                <tr><td>62</td><td>Borja</td><td>Parada técnica, gasolinera</td></tr>
+                <tr><td>88</td><td>Tarazona</td><td>Foto de grupo en la plaza de toros vieja</td></tr>
+                <tr><td>112</td><td>Santuario del Moncayo</td><td>Subida en orden, sin adelantar</td></tr>
+                <tr><td>130</td><td>Vera de Moncayo</td><td>Comida</td></tr>
+                <tr><td>184</td><td>Zaragoza</td><td>Regreso libre</td></tr>
+              </tbody></table></div>
+          </div>
+        </article>
+
+        <article class="route">
+          <div class="pic"><img src="img/seat124.jpg" alt="SEAT 124 aparcado" loading="lazy"><span class="km">238 km</span></div>
+          <div class="info">
+            <span class="eyebrow">Ruta 02 · Primavera</span>
+            <h3>Calatayud y Monasterio de Piedra</h3>
+            <p>Tramos por la antigua N-II y el valle del río Piedra. Ruta larga pero cómoda, ideal para berlinas como el 124 o el 1500.</p>
+            <dl class="specs">
+              <div><dt>Duración</dt><dd>Día entero</dd></div>
+              <div><dt>Puerto</dt><dd>890 m</dd></div>
+              <div><dt>Dificultad</dt><dd><span class="dots">●●</span>○○</dd></div>
+              <div><dt>Firme</dt><dd>Asfalto</dd></div>
+            </dl>
+            <div class="roadbook"><table>
+              <thead><tr><th>Km</th><th>Punto</th><th>Nota</th></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>Zaragoza</td><td>Salida por la antigua N-II</td></tr>
+                <tr><td>45</td><td>La Almunia</td><td>Café y repostaje</td></tr>
+                <tr><td>87</td><td>Calatayud</td><td>Paseo por el casco antiguo</td></tr>
+                <tr><td>119</td><td>Nuévalos</td><td>Visita al parque y comida</td></tr>
+                <tr><td>238</td><td>Zaragoza</td><td>Regreso por Daroca</td></tr>
+              </tbody></table></div>
+          </div>
+        </article>
+
+        <article class="route">
+          <div class="pic"><img src="img/renault4.jpg" alt="Renault 4 L de FASA" loading="lazy"><span class="km">212 km</span></div>
+          <div class="info">
+            <span class="eyebrow">Ruta 03 · Verano</span>
+            <h3>Albarracín por la sierra</h3>
+            <p>Salida temprana para evitar el calor. Recorrido por la Sierra de Albarracín con una pista corta de tierra que los 4L y los 2CV disfrutan mucho.</p>
+            <dl class="specs">
+              <div><dt>Duración</dt><dd>Fin de semana</dd></div>
+              <div><dt>Puerto</dt><dd>1.480 m</dd></div>
+              <div><dt>Dificultad</dt><dd><span class="dots">●●●●</span></dd></div>
+              <div><dt>Firme</dt><dd>Mixto</dd></div>
+            </dl>
+            <div class="roadbook"><table>
+              <thead><tr><th>Km</th><th>Punto</th><th>Nota</th></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>Teruel</td><td>Reunión en la Escalinata</td></tr>
+                <tr><td>38</td><td>Albarracín</td><td>Visita guiada y noche en hotel</td></tr>
+                <tr><td>74</td><td>Bronchales</td><td>Pista de tierra de 6 km (opcional)</td></tr>
+                <tr><td>121</td><td>Orihuela del Tremedal</td><td>Comida</td></tr>
+                <tr><td>212</td><td>Teruel</td><td>Fin de ruta</td></tr>
+              </tbody></table></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Álbum</span><h2>Salidas anteriores</h2></div>
+      <div class="past">
+        <figure><img src="img/r8-600.jpg" alt="Concentración de clásicos" loading="lazy"><figcaption>Concentración de primavera · 2026</figcaption></figure>
+        <figure><img src="img/seat127.jpg" alt="SEAT 127" loading="lazy"><figcaption>Ruta del Somontano · 2026</figcaption></figure>
+        <figure><img src="img/hispano.jpg" alt="Hispano-Suiza H6B de 1924" loading="lazy"><figcaption>Visita a una colección privada · Hispano-Suiza H6B</figcaption></figure>
+        <figure><img src="img/seat1430.jpg" alt="SEAT 1430 Sport" loading="lazy"><figcaption>Ruta del Pirineo · 2025</figcaption></figure>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Clásicos Cierzo</b><p>Asociación de vehículos clásicos</p><p>Local social: Calle Ejemplo 12, Zaragoza</p><p>Martes y jueves, de 19:00 a 21:00</p></div>
+    <div><b>Contacto</b>
+      <p class="copy"><span id="mail">info@clasicoscierzo.es</span><button type="button" data-copy="mail">Copiar</button></p>
+      <p class="copy"><span id="tel">976 000 000</span><button type="button" data-copy="tel">Copiar</button></p>
+    </div>
+    <div><b>Sobre esta web</b><p>Maqueta de ejemplo. Nombres, fechas y datos son orientativos.</p><p>Fotografías de muestra: Wikimedia Commons (licencias Creative Commons).</p></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var views={club:document.getElementById('view-club'),eventos:document.getElementById('view-eventos')};
+  var tabs=document.querySelectorAll('nav.tabs a');
+  function show(name,scroll){
+    if(!views[name]) name='club';
+    for(var k in views) views[k].hidden=(k!==name);
+    tabs.forEach(function(a){ if(a.dataset.view===name) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    if(scroll) window.scrollTo(0,0);
+  }
+  document.querySelectorAll('[data-view]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault(); show(a.dataset.view,true);
+      try{ history.replaceState(null,'','#'+a.dataset.view); }catch(_){}
+    });
+  });
+  var h=(location.hash||'').slice(1);
+  show(h==='eventos'?'eventos':'club',false);
+  if(h==='socio') document.getElementById('socio').scrollIntoView();
+
+  // Filtros de eventos
+  var chips=document.querySelectorAll('.chip'), evs=document.querySelectorAll('.event'), empty=document.getElementById('emptyMsg');
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      var f=c.dataset.filter, n=0;
+      chips.forEach(function(x){ x.setAttribute('aria-pressed', x===c ? 'true':'false'); });
+      evs.forEach(function(ev){ var on=(f==='all'||ev.dataset.type===f); ev.hidden=!on; if(on) n++; });
+      empty.hidden=n>0;
+    });
+  });
+
+  // Formulario de socio (solo demostración)
+  var form=document.getElementById('joinForm'), ok=document.getElementById('joinOk');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('f-name').value.trim(), mail=document.getElementById('f-email').value.trim();
+    if(!name||!/^\S+@\S+\.\S+$/.test(mail)){
+      ok.hidden=false; ok.textContent='Escribe tu nombre y un correo válido para enviar la solicitud.'; return;
+    }
+    ok.hidden=false;
+    ok.textContent='Gracias, '+name.split(' ')[0]+'. En la web real, la secretaría recibiría tu solicitud y te escribiría a '+mail+'.';
+    form.reset();
+  });
+
+  // Copiar contacto
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.copy), txt=el.textContent;
+      function sel(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){ b.textContent='Copiado'; setTimeout(function(){b.textContent='Copiar';},1500); }, sel);
+      } else sel();
+    });
+  });
+})();
+</script>
+</body>
+</html>
